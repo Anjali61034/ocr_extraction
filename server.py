@@ -34,5 +34,7 @@ def extract():
 
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))  # ✅ required by Railway
+    import os
+    port = int(os.environ.get("PORT", 8080))  # Railway sets PORT env variable
     app.run(host="0.0.0.0", port=port)
+
