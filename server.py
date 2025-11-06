@@ -76,7 +76,7 @@ def detect_certificate_category(text: str):
 
 def detect_certificate_type_rank_lead(text: str):
     t = text.lower()
-    is_lead = any(w in t for w in ["captain", "leader", "president", "organizer", "coordinator", "head", "incharge"])
+    is_lead = any(w in t for w in ["captain", "president", "organizer", "coordinator", "head", "incharge"])
     rank = None
     if re.search(r'\b(1st|first|winner|gold)\b', t): rank = "1"
     elif re.search(r'\b(2nd|second|runner|silver)\b', t): rank = "2"
