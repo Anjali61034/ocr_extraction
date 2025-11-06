@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
-import pytesseract, re, io, base64, os
+import pytesseract, io, base64
 from PIL import Image
-pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"
+import os
 
 app = Flask(__name__)
 
@@ -19,23 +19,15 @@ def extract():
         if not image_b64:
             return jsonify({"error": "No image provided"}), 400
 
+        # decode and OCR
         image = Image.open(io.BytesIO(base64.b64decode(image_b64)))
         text = pytesseract.image_to_string(image)
 
-        # Simple scoring logic (you can expand this)
-        if "cgpa" in text.lower():
-            points = 4
-        else:
-            points = 1
-
+        points = 4 if "cgpa" in text.lower() else 1
         return jsonify({"points": points, "text": text, "docType": doc_type}), 200
-
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-
 if __name__ == "__main__":
-    import os
-    port = int(os.environ.get("PORT", 8080))  # Railway sets PORT env variable
+    port = int(os.environ.get("PORT", 8080))
     app.run(host="0.0.0.0", port=port)
-
