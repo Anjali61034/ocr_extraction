@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 import pytesseract, re, io, base64, os
 from PIL import Image
+pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"
 
 app = Flask(__name__)
 
