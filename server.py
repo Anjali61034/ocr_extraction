@@ -3,6 +3,10 @@ import pytesseract, io, base64
 from PIL import Image
 import os
 
+# ✅ Install tesseract on first run
+if not os.path.exists("/usr/bin/tesseract"):
+    os.system("apt-get update && apt-get install -y tesseract-ocr")
+
 app = Flask(__name__)
 
 @app.route("/")
